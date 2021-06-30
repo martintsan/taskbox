@@ -22,16 +22,7 @@ export function PureTaskList({ loading, tasks, onPinTask, onArchiveTask }) {
   );
 
   if (loading) {
-    return (
-      <div className="list-items">
-        {LoadingRow}
-        {LoadingRow}
-        {LoadingRow}
-        {LoadingRow}
-        {LoadingRow}
-        {LoadingRow}
-      </div>
-    );
+    return <div className="list-items">{LoadingRow}</div>;
   }
 
   if (tasks.length === 0) {
@@ -72,10 +63,12 @@ PureTaskList.defaultProps = {
 };
 
 export default connect(
-  ({ tasks }) => ({
-    tasks: tasks.filter(
-      (t) => t.state === "TASK_INBOX" || t.state === "TASK_PINNED"
-    ),
+  (data) => ({
+    tasks: data.tasks
+      ? data.tasks.filter(
+          (t) => t.state === "TASK_INBOX" || t.state === "TASK_PINNED"
+        )
+      : [],
   }),
   (dispatch) => ({
     onArchiveTask: (id) => dispatch(archiveTask(id)),

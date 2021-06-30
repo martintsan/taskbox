@@ -26,7 +26,7 @@ export const reducer = (state, action) => {
     case actions.PIN_TASK:
       return taskStateReducer("TASK_PINNED")(state, action);
     default:
-      return false;
+      return state;
   }
 };
 
